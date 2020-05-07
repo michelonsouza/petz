@@ -1,0 +1,51 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import",
+        "react-hooks",
+        "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+      "react/jsx-one-expression-per-line": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "import/prefer-default-export": "off",
+      "import/no-named-as-default": "off",
+      "jsx-a11y/label-has-associated-control": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "no-param-reassign": "off",
+      "global-require": "off"
+    },
+    "settings": {
+      "import/resolver": {
+        "babel-plugin-root-import": {
+          "rootPathSuffix": "src"
+        }
+      }
+    }
+}
