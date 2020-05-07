@@ -75,7 +75,7 @@ function Post() {
         </button>
       </div>
       {post && (
-        <PostContainer>
+        <PostContainer className="post-container">
           <div className="post-content-container">
             <img src={post.image} alt={post.title} />
             <div>

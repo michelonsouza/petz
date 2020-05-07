@@ -1,6 +1,30 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import metrics from '~/styles/metrics';
+
+const showList = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+function createAnimation() {
+  const arr = new Array(10).fill(1);
+
+  return arr.map(
+    (a, i) => css`
+      & > div:nth-child(${i}) {
+        animation: ${showList} ${i * 0.4}s ease;
+      }
+    `,
+  );
+}
 
 export const Container = styled.div`
   width: 100%;
@@ -18,6 +42,12 @@ export const Container = styled.div`
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  ${createAnimation()};
+
+  & > div:nth-child(n + 10) {
+    animation: ${showList} 0.5s ease;
   }
 `;
 

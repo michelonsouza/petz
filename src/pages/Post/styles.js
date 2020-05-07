@@ -1,5 +1,47 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
 import metrics from '~/styles/metrics';
+
+const showList = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const postAnimate = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  60% {
+    opacity: 0.7;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+function createAnimation() {
+  const arr = new Array(10).fill(1);
+
+  return arr.map(
+    (a, i) => css`
+      & > div:nth-child(${i}) {
+        animation: ${showList} ${i * 0.3}s ease;
+      }
+    `,
+  );
+}
 
 export const Container = styled.div`
   width: 900px;
@@ -7,6 +49,10 @@ export const Container = styled.div`
   margin: 20px auto;
   padding: 0 20px;
   min-height: calc(100vh - ${metrics.baseHeight * 1.94 * 2}px);
+
+  .post-container {
+    animation: ${postAnimate} 800ms ease forwards;
+  }
 
   @media screen and (min-width: 900px) {
     padding: 0;
@@ -41,6 +87,8 @@ export const CommentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  ${createAnimation()};
 `;
 
 export const Comment = styled.div`
