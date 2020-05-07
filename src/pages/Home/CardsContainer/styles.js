@@ -65,31 +65,45 @@ export const Card = styled.div`
 
     .post-title {
       color: ${({ theme }) => theme.colors.textSecondary};
-      text-align: left;
-      background: transparent;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
 
-    button:not(.post-title) {
-      height: ${metrics.baseHeight}px;
-      border: 2px solid ${({ theme }) => theme.colors.danger};
-      border-radius: ${metrics.borderRadius}px;
-      color: ${({ theme }) => theme.colors.danger};
-      margin-top: 20px;
-      background: transparent;
+    .action-container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
 
-      svg {
-        transition: stroke 200ms ease;
-      }
+      button:not(.post-title) {
+        height: ${metrics.baseHeight}px;
+        border: 2px solid ${({ theme }) => theme.colors.danger};
+        border-radius: ${metrics.borderRadius}px;
+        color: ${({ theme }) => theme.colors.danger};
+        margin-top: 20px;
+        background: transparent;
+        flex: 1;
 
-      &:hover {
-        background: ${({ theme }) => theme.colors.danger};
+        & + button {
+          border-color: ${({ theme }) => theme.colors.primary};
+          color: ${({ theme }) => theme.colors.primary};
+          margin-left: 10px;
+          font-weight: bold;
+
+          &:hover {
+            background: ${({ theme }) => theme.colors.primary};
+            color: #fff;
+          }
+        }
 
         svg {
-          stroke: #fff;
+          transition: stroke 200ms ease;
+        }
+
+        &:hover {
+          background: ${({ theme }) => theme.colors.danger};
+
+          svg {
+            stroke: #fff;
+          }
         }
       }
     }

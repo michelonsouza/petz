@@ -48,7 +48,7 @@ export const Comment = styled.div`
   border-top: 2px solid ${({ theme }) => theme.colors.inputBorder};
   border-right: 2px solid ${({ theme }) => theme.colors.inputBorder};
   border-bottom: 2px solid ${({ theme }) => theme.colors.inputBorder};
-  border-radius: ${metrics.borderRadius * 2}px;
+  border-radius: ${metrics.borderRadius}px;
   padding: ${metrics.basePadding}px;
   overflow: hidden;
   font-size: 0.9rem;
@@ -83,7 +83,7 @@ export const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  padding-bottom: 20px;
+  padding: 5px 0 20px 0;
   border-bottom: 2px solid ${({ theme }) => theme.colors.inputBorder};
 
   .post-content-container {
@@ -95,16 +95,19 @@ export const PostContainer = styled.div`
     }
 
     img {
+      margin-bottom: 20px;
+      border-radius: ${metrics.borderRadius}px;
+
       @media screen and (min-width: 768px) {
         height: 200px;
-        border-radius: ${metrics.borderRadius}px;
         margin-right: 20px;
+        margin-bottom: 0;
       }
     }
 
     h1 {
       color: ${({ theme }) => theme.colors.text};
-      margin: 20px 0;
+      margin: 0 0 20px 0;
     }
 
     p {

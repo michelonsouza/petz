@@ -43,7 +43,7 @@ function Home() {
     return `https://picsum.photos/id/${arrIds[index]}/400/400`;
   }, []);
 
-  const generateExcludeUrl = useCallback(() => {
+  const generateExcludePosts = useCallback(() => {
     let url = '';
     const deletedPosts = localStorage.getItem('@petzblog:posts:deleted');
 
@@ -58,36 +58,43 @@ function Home() {
     return url;
   }, []);
 
-  const loadPosts = useCallback(async () => {
-    setLoading(true);
-    try {
-      const requests = [
-        api.get(`/posts?_page=${page}&_limit=9${generateExcludeUrl()}`),
-        api.get('/users'),
-      ];
+  const loadPosts = useCallback(
+    async (newPage = null) => {
+      setLoading(true);
+      try {
+        const requests = [
+          api.get(
+            `/posts?_page=${newPage || page}&_limit=9${generateExcludePosts()}`,
+          ),
+          api.get('/users'),
+        ];
 
-      const [{ data: postsData }, { data: usersData }] = await Promise.all(
-        requests,
-      );
+        const [{ data: postsData }, { data: usersData }] = await Promise.all(
+          requests,
+        );
 
-      const formattedPosts = postsData.map(post => ({
-        ...post,
-        image: getImageUrl(),
-        user: usersData.find(u => post.userId === u.id),
-      }));
+        const formattedPosts = postsData.map(post => ({
+          ...post,
+          image: getImageUrl(),
+          user: usersData.find(u => post.userId === u.id),
+        }));
 
-      setPosts([...posts, ...formattedPosts]);
-      setUsers(usersData);
-      setPage(page + 1);
+        const conditionedPosts = newPage ? [] : posts;
 
-      setTimeout(() => {
-        hideInitialLoading();
-      }, 1000);
-    } catch (error) {
-      toast.error('Erro ao carregar os posts');
-    }
-    setLoading(false);
-  }, [getImageUrl, posts, page, generateExcludeUrl]);
+        setPosts([...conditionedPosts, ...formattedPosts]);
+        setUsers(usersData);
+        setPage(newPage || page + 1);
+
+        setTimeout(() => {
+          hideInitialLoading();
+        }, 1000);
+      } catch (error) {
+        toast.error('Erro ao carregar os posts');
+      }
+      setLoading(false);
+    },
+    [getImageUrl, posts, page, generateExcludePosts],
+  );
 
   const handleDelete = useCallback(
     async id => {
@@ -132,7 +139,7 @@ function Home() {
 
       try {
         const { data: response } = await api.get(
-          `/posts?title_like=${searchText}&body_like=${searchText}${generateExcludeUrl()}`,
+          `/posts?title_like=${searchText}&body_like=${searchText}${generateExcludePosts()}`,
         );
 
         const formattedPosts = response.map(post => ({
@@ -149,7 +156,7 @@ function Home() {
       setLoading(false);
       setFiltered(true);
     },
-    [searchText, getImageUrl, users],
+    [searchText, getImageUrl, users, generateExcludePosts],
   );
 
   const resetFilter = useCallback(() => {
@@ -157,17 +164,13 @@ function Home() {
     setSearchText('');
     setPage(1);
     setFiltered(false);
+    loadPosts(1);
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     loadPosts();
   }, []);
-
-  useEffect(() => {
-    if (!filtered) {
-      loadPosts();
-    }
-  }, [filtered]);
 
   return (
     <Container>
@@ -183,11 +186,16 @@ function Home() {
           />
         </label>
         {!filtered ? (
-          <Button type="submit" onClick={handleFilter}>
+          <Button type="submit" onClick={handleFilter} role="button">
             Buscar
           </Button>
         ) : (
-          <Button type="reset" variant="secondary" onClick={resetFilter}>
+          <Button
+            type="reset"
+            variant="secondary"
+            onClick={resetFilter}
+            role="button"
+          >
             Limpar filtros
           </Button>
         )}
@@ -208,7 +216,12 @@ function Home() {
       )}
 
       {!isEmpty && (
-        <Button className="w-100" onClick={loadPosts} loading={loading}>
+        <Button
+          className="w-100"
+          onClick={() => loadPosts()}
+          title="Carregar mais Posts..."
+          role="button"
+        >
           Ver mais...
         </Button>
       )}

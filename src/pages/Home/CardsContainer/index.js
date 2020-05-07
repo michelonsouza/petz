@@ -48,21 +48,26 @@ function CardsContainer({ data, loading, onDelete }) {
               <span className="author" title={post.user.name}>
                 {post.user.name}
               </span>
-              <button
-                type="button"
-                className="post-title"
-                onClick={() => handleNavigate(post.id)}
-                title={`Ver detalhes do post #${post.id} - ${post.title}`}
-              >
+              <span type="button" className="post-title">
                 <b>#</b> {post.id} - {maxStringLength(post.title)}
-              </button>
-              <button
-                type="button"
-                title={`Excluir post #${post.id}`}
-                onClick={() => setPostSelected(post.id)}
-              >
-                <FiTrash2 size={20} />
-              </button>
+              </span>
+              <div className="action-container">
+                <button
+                  type="button"
+                  title={`Excluir post #${post.id}`}
+                  onClick={() => setPostSelected(post.id)}
+                >
+                  <FiTrash2 size={20} />
+                </button>
+                <button
+                  className="show-details"
+                  onClick={() => handleNavigate(post.id)}
+                  type="button"
+                  title={`Ver detalhes do post #${post.id} - ${post.title}`}
+                >
+                  Visualizar
+                </button>
+              </div>
             </div>
           </Card>
         ))}

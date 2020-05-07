@@ -40,6 +40,8 @@ function Post() {
   }, [theme]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     async function loadComments() {
       setLoading(true);
 
