@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
+import { MdMoodBad } from 'react-icons/md';
 
 import api from '~/services/api';
 import { hideInitialLoading } from '~/utils';
 
 import { Input, Button } from '~/components';
-import { Container } from './styles';
+import { Container, NoData } from './styles';
 import CardsContainer from './CardsContainer';
 
 function Home() {
@@ -162,7 +163,20 @@ function Home() {
           </Button>
         )}
       </form>
-      <CardsContainer data={posts} onDelete={handleDelete} loading={loading} />
+      {!isEmpty && (
+        <CardsContainer
+          data={posts}
+          onDelete={handleDelete}
+          loading={loading}
+        />
+      )}
+
+      {filtered && isEmpty && !loading && (
+        <NoData>
+          <MdMoodBad size={90} />
+          <p>Pesquisa não retornou nenhum dado!</p>
+        </NoData>
+      )}
 
       {!isEmpty && (
         <Button className="w-100" onClick={loadPosts} loading={loading}>

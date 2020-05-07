@@ -30,3 +30,22 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const NoData = styled.div`
+  /* border: 2px solid ${({ theme }) => theme.colors.inputBorder};
+  border-radius: ${metrics.borderRadius}px; */
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.textLight};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40vh;
+  flex-direction: column;
+
+  p {
+    font-size: 1.3rem;
+    margin-top: 20px;
+    text-align: center;
+  }
+`;
