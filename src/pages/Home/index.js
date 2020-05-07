@@ -160,6 +160,7 @@ function Home() {
   );
 
   const resetFilter = useCallback(() => {
+    document.querySelector('#input-search').blur();
     setPosts([]);
     setSearchText('');
     setPage(1);
