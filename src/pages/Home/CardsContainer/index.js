@@ -25,7 +25,7 @@ function CardsContainer({ data, loading, onDelete }) {
     id => {
       const post = data.find(p => p.id === id);
       localStorage.setItem('@petzblog:post:selected', JSON.stringify(post));
-      history.push(`/post/${id}`);
+      history.push(`/posts/${id}`);
     },
     [data],
   );
@@ -52,6 +52,7 @@ function CardsContainer({ data, loading, onDelete }) {
                 type="button"
                 className="post-title"
                 onClick={() => handleNavigate(post.id)}
+                title={`Ver detalhes do post #${post.id} - ${post.title}`}
               >
                 <b>#</b> {post.id} - {maxStringLength(post.title)}
               </button>

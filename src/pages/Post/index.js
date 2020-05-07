@@ -28,6 +28,9 @@ function Post() {
       return JSON.parse(selectedPost);
     }
 
+    toast.error('Selecione um post para visualizar mais detalhes');
+    history.push('/');
+
     return null;
   });
   const { id } = useParams();
@@ -69,23 +72,25 @@ function Post() {
           <FiArrowLeft size={22} /> Voltar
         </button>
       </div>
-      <PostContainer>
-        <div className="post-content-container">
-          <img src={post.image} alt={post.title} />
-          <div>
-            <h1>{post.title}</h1>
-            <p>{post.body}</p>
+      {post && (
+        <PostContainer>
+          <div className="post-content-container">
+            <img src={post.image} alt={post.title} />
+            <div>
+              <h1>{post.title}</h1>
+              <p>{post.body}</p>
+            </div>
           </div>
-        </div>
-        <div className="author-container">
-          <span>
-            <b>Autor:</b> {post.user.name}
-          </span>
-          <span>
-            <b>E-mail:</b> {post.user.email}
-          </span>
-        </div>
-      </PostContainer>
+          <div className="author-container">
+            <span>
+              <b>Autor:</b> {post.user.name}
+            </span>
+            <span>
+              <b>E-mail:</b> {post.user.email}
+            </span>
+          </div>
+        </PostContainer>
+      )}
       {loading && (
         <LoadingContainer>
           <Spinner color={spinnerColor} stroke={8} radius={150} />

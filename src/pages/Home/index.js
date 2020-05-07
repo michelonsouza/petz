@@ -43,11 +43,26 @@ function Home() {
     return `https://picsum.photos/id/${arrIds[index]}/400/400`;
   }, []);
 
+  const generateExcludeUrl = useCallback(() => {
+    let url = '';
+    const deletedPosts = localStorage.getItem('@petzblog:posts:deleted');
+
+    if (deletedPosts) {
+      const excludedPosts = JSON.parse(deletedPosts);
+
+      excludedPosts.forEach(post => {
+        url += `&id_ne=${post}`;
+      });
+    }
+
+    return url;
+  }, []);
+
   const loadPosts = useCallback(async () => {
     setLoading(true);
     try {
       const requests = [
-        api.get(`/posts?_page=${page}&_limit=9`),
+        api.get(`/posts?_page=${page}&_limit=9${generateExcludeUrl()}`),
         api.get('/users'),
       ];
 
@@ -61,10 +76,6 @@ function Home() {
         user: usersData.find(u => post.userId === u.id),
       }));
 
-      localStorage.setItem(
-        '@petzblog:posts',
-        JSON.stringify([...posts, ...formattedPosts]),
-      );
       setPosts([...posts, ...formattedPosts]);
       setUsers(usersData);
       setPage(page + 1);
@@ -76,7 +87,7 @@ function Home() {
       toast.error('Erro ao carregar os posts');
     }
     setLoading(false);
-  }, [getImageUrl, posts, page]);
+  }, [getImageUrl, posts, page, generateExcludeUrl]);
 
   const handleDelete = useCallback(
     async id => {
@@ -84,8 +95,25 @@ function Home() {
       try {
         await api.delete(`/posts/${id}`);
 
-        const filteredPosts = posts.filter(post => post.id !== id);
-        localStorage.setItem('@petzblog:posts', JSON.stringify(filteredPosts));
+        let excludedPosts = [];
+        const deletedPosts = localStorage.getItem('@petzblog:posts:deleted');
+
+        if (deletedPosts) {
+          excludedPosts = JSON.parse(deletedPosts).filter(
+            post => post.id !== id,
+          );
+        }
+
+        excludedPosts.push(id);
+
+        localStorage.setItem(
+          '@petzblog:posts:deleted',
+          JSON.stringify(excludedPosts),
+        );
+
+        const filteredPosts = posts.filter(
+          post => !excludedPosts.includes(post.id),
+        );
         setPosts(filteredPosts);
         toast.success(`Post #${id} excluido com sucesso`);
       } catch (error) {
@@ -100,10 +128,11 @@ function Home() {
     async event => {
       event.preventDefault();
       setLoading(true);
+      document.querySelector('#input-search').blur();
 
       try {
         const { data: response } = await api.get(
-          `/posts?title_like=${searchText}&body_like=${searchText}`,
+          `/posts?title_like=${searchText}&body_like=${searchText}${generateExcludeUrl()}`,
         );
 
         const formattedPosts = response.map(post => ({
