@@ -5,8 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Este é o Petz Blog. Feito para te deixar Informado de Tudo que Acontece no Mundo Pet">
   <meta name="theme-color" content="#FFD400">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> -->
   <link rel="shortcut icon" href="/favicon.jpg" type="image/jpg">
+  <script type="text/javascript">
+    WebFontConfig = {
+      google: { families: [ 'Montserrat:wght@400;700' ] }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })(); </script>
   <style>
     @keyframes pulse {
       0% {
@@ -47,12 +59,12 @@
       animation: pulse 1000ms linear infinite;
     }
   </style>
-  <title>PetZ - TesteFront-end</title>
+  <title>PetZ - Blog</title>
 </head>
 <body class="loading">
   <a href="#root" id="main-content">ignore</a>
   <div id="initial-loading">
-    <img src="/logo_petz.png" alt="Petz">
+    <img src="/logo_petz.webp" alt="Petz">
   </div>
   <main id="root"></div>
 </body>

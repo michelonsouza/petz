@@ -40,7 +40,7 @@ function Home() {
       Math.random(0, arrIds.length - 1) * (arrIds.length - 1 - 0) + 0,
     );
 
-    return `https://picsum.photos/id/${arrIds[index]}/400/400`;
+    return `https://picsum.photos/id/${arrIds[index]}/400/400.webp`;
   }, []);
 
   const generateExcludePosts = useCallback(() => {
