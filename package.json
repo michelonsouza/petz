@@ -1,8 +1,12 @@
 {
-  "name": "petz_20200505",
+  "name": "petz_blog",
   "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
+  "author": {
+    "name": "Michelon Souza",
+    "email": "michelon.souza@hotmail.com"
+  },
   "scripts": {
     "app:init": "npm install && npm run start",
     "build": "webpack --mode production",

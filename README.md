@@ -31,6 +31,39 @@ Jsonplaceholder tem a finalidade de proporcionar uma API rapida para propositos 
 A mesma provê as principais funcionalidades de uma API REST como o respeito as _verbos HTTP_ como: **GET, POST, PUT, PATCH e DELETE**.
 Tembém possui filtros para listagem através de _query-params_. Enfim, muito completa.
 
+### ⚙️ Desenvolvimento
+Após clonar o repositório do projeto, siga os passos abaixo.
+
+Para agilizar o processo de instalação e deploy local, basta digitar o seguinte comando em seu terminal:
+```bash
+npm run app:init
+```
+ou
+```bash
+yarn app:init
+```
+
+Caso queira realizar todos os passos individualmente, insira os comando abaixo em seu terminal:
+```bash
+npm install
+```
+ou
+```bash
+yarn
+```
+
+Aguarde a instalação das dependências e estará pronto para desenvolvimento.
+
+#### Iniciando a aplicação localmente
+Para iniciar a aplcação localmente basta digitar o commando em seu terminal:
+```bash
+npm run start
+```
+ou
+```bash
+yarn start
+```
+
 ### 💻 Tecnologias
 Para este projeto foi escolhida a biblioteca ReactJS. O ReactJS apresenta todo um ecosistema em torno de si com outra _libs_ que resolvem outras demandas de uma aplicação web como SPA, tais como: **Navegação (rotas), carregamento de svgs, css-in-js (styled-components, nesse caso), gerenciamento de estado, etc**.
 
@@ -56,7 +89,7 @@ Abaixo segue uma pequena demonstração:
 
 Link da aplicação hospedado na Netlify: 🔗[petz-blog.netlify.app](https://petz-blog.netlify.app/)
 
-**Licença [MIT](/license.txt)**
+**Licença [MIT](/LICENSE.md)**
 
 
 #### Feito com 🖤por Michelon
