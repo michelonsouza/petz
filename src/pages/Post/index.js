@@ -75,9 +75,10 @@ function Post() {
         </button>
       </div>
       {post && (
-        <PostContainer className="post-container">
+        <PostContainer className="post-container" img={post.image}>
           <div className="post-content-container">
-            <img src={post.image} alt={post.title} />
+            {/* <img src={post.image} alt={post.title} /> */}
+            <div className="post-img" />
             <div>
               <h1>{post.title}</h1>
               <p>{post.body}</p>

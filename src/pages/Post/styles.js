@@ -142,6 +142,24 @@ export const PostContainer = styled.div`
       flex-direction: row;
     }
 
+    .post-img {
+      margin-bottom: 20px;
+      border-radius: ${metrics.borderRadius}px;
+
+      background: url("${({ img }) =>
+        img}") center center no-repeat, url("/logo_petz.webp");
+      background-size: cover;
+      height: 200px;
+      width: 100%;
+
+      @media screen and (min-width: 768px) {
+        height: 200px;
+        max-width: 200px;
+        margin-right: 20px;
+        margin-bottom: 0;
+      }
+    }
+
     img {
       margin-bottom: 20px;
       border-radius: ${metrics.borderRadius}px;

@@ -69,7 +69,8 @@ export const Card = styled.div`
   }
 
   div.card-img {
-    background: url("${({ img }) => img}") center center no-repeat;
+    background: url("${({ img }) =>
+      img}") center center no-repeat, url("/logo_petz.webp");
     background-size: cover;
     height: 200px;
     width: 100%;
